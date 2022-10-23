@@ -65,3 +65,14 @@ si no lo tenemos instalado en el pc:
 - ahora elegimos el estilo para el proyecto
 - elegimos airbnb
 - config file en json
+
+DESPLEGAR EN NETLIFY
+- Primero ejecutamos las build para ver si funcionan correctamente
+- npm run build
+- npm run build:Prod
+Con esto webpack nos genera los bundle que contendran nuestra aplicación empaquetada y lista para desarrollo o producción
+
+Necesitamos agregar la dependencia netlify-cli en el proyecto
+- npm install --save-dev netlify-cli
+
+
