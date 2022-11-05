@@ -1,25 +1,67 @@
 import { useState } from 'react';
 
-const useList = (initialValue = []) => {
-    const [value, setValue] = useState(initialValue);
+/**
+ * Hook personalizado para gestionar listas
+ * @param {array} initialValue
+ * @returns funcionalidades: value, item, editItem, remove, push, isEmpty
+ */
 
-    // Push new value to list
-    const push = (element) => {
-        setValue((oldValue) => [...oldValue, element]);
+const useList = (
+    initialValue = [],
+    ) => {
+    const [value, setValue] = useState(initialValue);
+    const [item, setItem] = useState('');
+
+    /**
+     * Editamos el nuevo elemento en el array
+     * @param {string} item
+     */
+    const editItem = (itemEdit) => {
+        setItem(itemEdit);
     };
 
-    // Remove value from list
+    /**
+     * Guardamos el nuevo elemento en la lista
+     */
+    const push = () => {
+        setValue((oldValue) => [...oldValue, { texto: item, completed: false }]);
+        setItem('');
+    };
+
+    /**
+     * Borramos un elemento de la lista
+     * @param {number} index
+     */
     const remove = (index) => {
         setValue((oldValue) => oldValue.filter((_, i) => i !== index));
     };
 
-    // List is Empty ? true / false
+    /**
+     * Comprobamos si hay elementos en la lista
+     * @returns {boolean}
+     */
     const isEmpty = () => value.length === 0;
+
+    /**
+     * Cambia el valor de completed de una tarea entre true y false
+     * @param {number} index
+     */
+    const toggleCompleted = (index) => {
+        const newValue = value;
+        newValue[index].completed = !newValue[index].completed;
+        setValue([...newValue]);
+    };
 
     // TODO: Develop more functions for lists
 
     return {
-        value, setValue, push, remove, isEmpty,
+        value,
+        item,
+        push,
+        remove,
+        isEmpty,
+        editItem,
+        toggleCompleted,
     };
 };
 

@@ -1,45 +1,57 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { FaTrashAlt } from 'react-icons/fa';
 import useList from '../../hooks/useList';
 
+/**
+ * Componente que gestiona la lista de tareas
+ * @returns {React.Component}
+ */
+
 const TaskList = () => {
-    const tasks = useList([]);
-    const [newTask, setNewTask] = useState('');
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        tasks.push(newTask);
-        setNewTask('');
-    };
-
-    const handleInputChange = (e) => {
-        setNewTask(e.target.value);
-    };
+    const {
+      value, item, editItem, isEmpty, push, remove, toggleCompleted,
+    } = useList([
+    ]);
 
     return (
       <div>
         <h1>Task List</h1>
-        <form onSubmit={handleSubmit}>
-          <input value={newTask} onChange={handleInputChange} placeholder="New Task" type="text" />
-          <button type="submit">Create Task</button>
-        </form>
-        { tasks.isEmpty()
-          ? (<p>Task List is Empty</p>)
-          : (
-            <ul>
-              { tasks.value.map((task, index) => (
-                <li key={index}>
-                  <input
-                    type="checkbox"
-                    onClick={() => tasks.remove(index)}
-                    checked={false}
-                  />
-                  { task }
-                </li>
-              ))}
-            </ul>
-          )}
+        <div>
+          <input
+            value={item}
+            className="input"
+            onChange={(e) => editItem(e.target.value)}
+            placeholder="New Task"
+            type="text"
+            onKeyDown={(e) => e.key === 'Enter' && push()}
+          />
+          <button
+            type="button"
+            onClick={push}
+            className="btn"
+          >
+            Create Task
+          </button>
+        </div>
+        {isEmpty() ? (
+          <p>Task List is Empty</p>
+        ) : (
+          <ul>
+            {value.map((task, index) => (
+              <li key={index}>
+                <input
+                  type="checkbox"
+                  onClick={() => toggleCompleted(index)}
+                  checked={task.completed}
+                />
+                <span className={`tarea ${task.completed ? 'tachado' : ''}`}>{task.texto}</span>
+                <FaTrashAlt onClick={() => remove(index)} />
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     );
-};
+  };
 
 export default TaskList;

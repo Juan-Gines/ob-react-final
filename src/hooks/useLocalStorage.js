@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
 
+/**
+ * Hook personalizado para gestionar localstorage
+ * @param {*} key
+ * @param {*} defaultValue
+ * @returns Estado de lo que vayamos a meter en localstorage
+ */
 const useLocalStorage = (key, defaultValue = null) => {
     const [value, setValue] = useState(() => {
         try {

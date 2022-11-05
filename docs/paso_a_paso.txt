@@ -75,4 +75,9 @@ Con esto webpack nos genera los bundle que contendran nuestra aplicación empaqu
 Necesitamos agregar la dependencia netlify-cli en el proyecto
 - npm install --save-dev netlify-cli
 
+TESTING LIBRARIES
+Necesitamos instalar las librerias de testing (miramos en jestjs.io)
+npm install --save-dev jest
 
+Y también testing-library de react https://testing-library.com/docs/react-testing-library/intro/
+npm install --save-dev @testing-library/react

@@ -6,17 +6,22 @@ const defaultConfig = {
     lang: 'es',
 };
 
-const Settings = () => {
+const Settings = ({ toggleDark }) => {
     const [config, setConfig] = useLocalStorage('config', defaultConfig);
 
-    const handleClick = () => {
+    /**
+     * Función para cambiar light <- -> dark
+     */
+    const toggleSettings = () => {
         setConfig((oldConfig) => (
             {
                 ...oldConfig,
-                theme: 'light',
+                theme: oldConfig.theme === 'light' ? 'dark' : 'light',
             }
         ));
+        toggleDark();
     };
+
     return (
       <div>
         <h1>APP SETTINGS</h1>
@@ -26,8 +31,8 @@ const Settings = () => {
           {' '}
           {config.theme}
         </p>
-        <button type="button" onClick={handleClick}>
-          Save New Settings
+        <button className="btn" type="button" onClick={toggleSettings}>
+          Toggle DarkMode
         </button>
       </div>
     );
